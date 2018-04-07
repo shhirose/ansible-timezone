@@ -1,0 +1,15 @@
+galaxy_info:
+  author: shhirose
+  description: This is Ansible role for timezone setting for RedHat Enterprise Linux.
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+  galaxy_tags:
+    - system
+    - timezone
+
+dependencies: []

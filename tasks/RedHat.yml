@@ -1,0 +1,29 @@
+---
+- name: Check current timezone
+  stat:
+    path: "{{ shhirose_timezone_timezone_file }}"
+    follow: yes
+  register: current
+
+- name: Check target timezone
+  stat:
+    path: "{{ shhirose_timezone_timezone_directory }}/{{ shhirose_timezone }}"
+    follow: yes
+  register: target
+
+- name: Apply timezone for RHEL v6
+  file:
+    src: "{{ shhirose_timezone_timezone_directory }}/{{ shhirose_timezone }}"
+    dest: "{{ shhirose_timezone_timezone_file }}"
+    state: link
+    force: yes
+    owner: root
+    group: root
+  when: ansible_distribution_major_version | int == 6 and current.stat.md5 != target.stat.md5
+
+- name: Apply timezone for RHEL v7 or lator
+  shell: "timedatectl set-timezone {{ shhirose_timezone }}"
+  register: result
+  change_when: False
+  when: ansible_distribution_major_version | int >= 7 and current.stat.md5 != target.stat.md5
+

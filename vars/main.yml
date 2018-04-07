@@ -1,0 +1,3 @@
+---
+shhirose_timezone_timezone_file: "/etc/localtime"
+shhirose_timezone_timezone_directory: "/usr/share/zoneinfo"
